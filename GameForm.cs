@@ -33,6 +33,8 @@ namespace FlappyBird
         private int   _bestScore;
         private int   _tick;
         private float _speed;
+        private int   _elapsedSeconds;
+        private int   _ticksThisSecond;
 
         // ── Rendering ────────────────────────────────────────────
         private readonly Timer _timer = new();
@@ -81,11 +83,13 @@ namespace FlappyBird
 
         private void ResetGame()
         {
-            _bird  = new Bird(100, GroundY / 2f - 20);
-            _pipes = new List<Pipe>();
-            _score = 0;
-            _tick  = 0;
-            _speed = BaseSpeed;
+            _bird            = new Bird(100, GroundY / 2f - 20);
+            _pipes           = new List<Pipe>();
+            _score           = 0;
+            _tick            = 0;
+            _speed           = BaseSpeed;
+            _elapsedSeconds  = 0;
+            _ticksThisSecond = 0;
         }
 
         // ── Input ────────────────────────────────────────────────
@@ -132,6 +136,14 @@ namespace FlappyBird
         {
             _tick++;
             _speed += SpeedIncrement;
+
+            // Timer: count elapsed seconds (timer fires at ~60 fps)
+            _ticksThisSecond++;
+            if (_ticksThisSecond >= 60)
+            {
+                _ticksThisSecond = 0;
+                _elapsedSeconds++;
+            }
 
             _bird.Update();
             _bg.Update(_speed);
@@ -213,9 +225,19 @@ namespace FlappyBird
 
         private void DrawHUD()
         {
+            // Score (centered top)
             DrawTextWithShadow(_bbg, _score.ToString(), _scoreFont,
-                Color.White, Color.FromArgb(80, 0, 0, 0),
+                Color.Black, Color.FromArgb(80, 255, 255, 255),
                 ScreenWidth / 2f, 50, centered: true);
+
+            // Timer (top-right, right-aligned)
+            int mins = _elapsedSeconds / 60;
+            int secs = _elapsedSeconds % 60;
+            string timerText = $"{mins:D2}:{secs:D2}";
+            SizeF timerSize = _bbg.MeasureString(timerText, _medFont);
+            DrawTextWithShadow(_bbg, timerText, _medFont,
+                Color.Black, Color.FromArgb(80, 255, 255, 255),
+                ScreenWidth - timerSize.Width - 8f, 14, centered: false);
         }
 
         private void DrawMenu()
@@ -225,19 +247,19 @@ namespace FlappyBird
             _bbg.FillRectangle(dimBrush, 0, 0, ScreenWidth, ScreenHeight);
 
             DrawTextWithShadow(_bbg, "FLAPPY BIRD", _bigFont,
-                Color.FromArgb(255, 230, 50), Color.FromArgb(150, 100, 60, 0),
+                Color.Black, Color.FromArgb(150, 255, 255, 255),
                 ScreenWidth / 2f, 160, centered: true);
 
             DrawTextWithShadow(_bbg, "Press SPACE or click to start", _medFont,
-                Color.White, Color.FromArgb(120, 0, 0, 0),
+                Color.Black, Color.FromArgb(120, 255, 255, 255),
                 ScreenWidth / 2f, 280, centered: true);
 
             DrawTextWithShadow(_bbg, $"Best: {_bestScore}", _medFont,
-                Color.FromArgb(255, 215, 0), Color.FromArgb(120, 0, 0, 0),
+                Color.Black, Color.FromArgb(120, 255, 255, 255),
                 ScreenWidth / 2f, 330, centered: true);
 
             DrawTextWithShadow(_bbg, "P = Pause   ESC = Quit", _smallFont,
-                Color.FromArgb(200, 200, 200), Color.FromArgb(100, 0, 0, 0),
+                Color.Black, Color.FromArgb(100, 255, 255, 255),
                 ScreenWidth / 2f, 390, centered: true);
         }
 
@@ -247,19 +269,24 @@ namespace FlappyBird
             _bbg.FillRectangle(dimBrush, 0, 0, ScreenWidth, ScreenHeight);
 
             DrawTextWithShadow(_bbg, "GAME OVER", _bigFont,
-                Color.FromArgb(255, 80, 60), Color.FromArgb(150, 80, 0, 0),
+                Color.Black, Color.FromArgb(150, 255, 255, 255),
                 ScreenWidth / 2f, 190, centered: true);
 
-            DrawPanel(_bbg, ScreenWidth / 2 - 140, 270, 280, 110);
+            DrawPanel(_bbg, ScreenWidth / 2 - 140, 270, 280, 140);
 
             DrawTextWithShadow(_bbg, $"Score : {_score}", _medFont,
-                Color.White, Color.Black, ScreenWidth / 2f, 290, centered: true);
+                Color.Black, Color.FromArgb(80, 255, 255, 255), ScreenWidth / 2f, 285, centered: true);
             DrawTextWithShadow(_bbg, $"Best  : {_bestScore}", _medFont,
-                Color.FromArgb(255, 215, 0), Color.Black, ScreenWidth / 2f, 325, centered: true);
+                Color.Black, Color.FromArgb(80, 255, 255, 255), ScreenWidth / 2f, 318, centered: true);
+
+            int mins = _elapsedSeconds / 60;
+            int secs = _elapsedSeconds % 60;
+            DrawTextWithShadow(_bbg, $"Time  : {mins:D2}:{secs:D2}", _medFont,
+                Color.Black, Color.FromArgb(80, 255, 255, 255), ScreenWidth / 2f, 351, centered: true);
 
             DrawTextWithShadow(_bbg, "Press SPACE to retry", _medFont,
-                Color.White, Color.FromArgb(120, 0, 0, 0),
-                ScreenWidth / 2f, 410, centered: true);
+                Color.Black, Color.FromArgb(120, 255, 255, 255),
+                ScreenWidth / 2f, 435, centered: true);
         }
 
         private void DrawPaused()
@@ -268,10 +295,10 @@ namespace FlappyBird
             _bbg.FillRectangle(dimBrush, 0, 0, ScreenWidth, ScreenHeight);
 
             DrawTextWithShadow(_bbg, "PAUSED", _bigFont,
-                Color.White, Color.FromArgb(120, 0, 0, 0),
+                Color.Black, Color.FromArgb(120, 255, 255, 255),
                 ScreenWidth / 2f, 220, centered: true);
             DrawTextWithShadow(_bbg, "Press P to resume", _medFont,
-                Color.LightGray, Color.Black,
+                Color.Black, Color.FromArgb(80, 255, 255, 255),
                 ScreenWidth / 2f, 310, centered: true);
         }
 
