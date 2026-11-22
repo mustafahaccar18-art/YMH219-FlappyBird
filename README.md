@@ -1,86 +1,86 @@
 # Flappy Bird (Windows Forms C#)
 
-Klasik retro Flappy Bird oyununun modern .NET ve C# Windows Forms mimarisi üzerinde sıfırdan geliştirilmiş masaüstü sürümüdür. Akıcı fizik dinamikleri, çift arabellekleme (double buffering) ile titremesiz grafikler ve tam klavye/fare desteği içerir.
+A desktop recreation of the classic retro Flappy Bird game built from the ground up using modern .NET and C# Windows Forms. Features smooth physics dynamics, flicker-free rendering with double buffering, and comprehensive keyboard/mouse input support.
 
 ---
 
-## 📋 İçindekiler
-1. [Proje Adı ve Kısa Açıklama](#proje-adı-ve-kısa-açıklama)
-2. [Kullanılan Teknoloji / NuGet Paketleri](#kullanılan-teknoloji--nuget-paketleri)
-3. [Kurulum ve Çalıştırma Adımları](#kurulum-ve-çalıştırma-adımları)
-4. [Uygulamanın Temel Özellikleri](#uygulamanın-temel-özellikleri)
-5. [Ekran Görüntüleri](#ekran-görüntüleri)
-6. [Bilinen Sınırlamalar / Geliştirme Notları](#bilinen-sınırlamalar--geliştirme-notları)
-7. [Öğrenci Bilgileri](#öğrenci-bilgileri)
+## 📋 Table of Contents
+1. [Project Name and Brief Description](#1-project-name-and-brief-description)
+2. [Technologies Used / NuGet Packages](#2-technologies-used--nuget-packages)
+3. [Installation and Running Steps](#3-installation-and-running-steps)
+4. [Key Features of the Application](#4-key-features-of-the-application)
+5. [Screenshots](#5-screenshots)
+6. [Known Limitations / Future Improvements](#6-known-limitations--future-improvements)
+7. [Student Information](#7-student-information)
 
 ---
 
-## 1. Proje Adı ve Kısa Açıklama
-- **Proje Adı:** Flappy Bird
-- **Açıklama:** Windows Forms ve GDI+ vektörel çizim motoru kullanılarak oluşturulmuş tek oyunculu arcade oyunu. Kuşun yerçekimine karşı zıplayarak boru engellerinden geçmesi ve en yüksek skoru elde etmesi hedeflenmektedir.
+## 1. Project Name and Brief Description
+- **Project Name:** Flappy Bird
+- **Description:** A single-player arcade game developed using Windows Forms and the GDI+ vector graphics engine. The goal is to navigate the bird through randomly generated green pipes by jumping against gravity to achieve the highest possible score.
 
 ---
 
-## 2. Kullanılan Teknoloji / NuGet Paketleri
-- **Programlama Dili:** C# 11+
-- **Çalışma Zamanı (Runtime):** .NET (Windows Forms)
-- **Grafik Motoru:** System.Drawing (GDI+ Çift Arabellekli Vektör Çizimi)
-- **NuGet Paketleri:** Harici bir üçüncü parti NuGet paketi **kullanılmamıştır**. Proje tamamen yerel .NET Core / Windows Desktop SDK kütüphaneleriyle bağımsız ve taşınabilir olarak geliştirilmiştir.
+## 2. Technologies Used / NuGet Packages
+- **Programming Language:** C# 11+
+- **Runtime Environment:** .NET (Windows Forms / Windows Desktop SDK)
+- **Graphics Engine:** System.Drawing (GDI+ Hardware-assisted Double-Buffered Vector Rendering)
+- **NuGet Packages:** **None** (No third-party packages required). The application utilizes native, built-in .NET Desktop libraries for optimal portability and performance.
 
 ---
 
-## 3. Kurulum ve Çalıştırma Adımları
+## 3. Installation and Running Steps
 
-### Gereksinimler
-- Windows 10 / 11 İşletim Sistemi
-- [.NET SDK](https://dotnet.microsoft.com/download) (veya Visual Studio 2022+)
+### Prerequisites
+- Windows 10 / 11 Operating System
+- [.NET SDK](https://dotnet.microsoft.com/download) (or Visual Studio 2022+)
 
-### Adım Adım Çalıştırma
-1. **Depoyu Klonlayın veya İndirin:**
+### Step-by-Step Instructions
+1. **Clone the Repository:**
    ```bash
    git clone https://github.com/mustafahaccar18-art/YMH219-FlappyBird.git
    cd YMH219-FlappyBird
    ```
 
-2. **Projeyi Derleyin:**
+2. **Build the Project:**
    ```bash
-   dotnet build
+   dotnet build -c Release
    ```
 
-3. **Uygulamayı Başlatın:**
+3. **Run the Application:**
    ```bash
    dotnet run
    ```
-   *(Alternatif olarak `FlappyBird.csproj` dosyasını Visual Studio ile açıp `F5` tuşuna basarak da başlatabilirsiniz.)*
+   *(Alternatively, you can open `FlappyBird.csproj` in Visual Studio and press `F5` / `Ctrl+F5` to start).*
 
 ---
 
-## 4. Uygulamanın Temel Özellikleri
-- 🎮 **Evrensel Kontrol Mekanizması:** Klavyedeki **herhangi bir tuşa basıldığında** veya ekranda herhangi bir yere **fare ile tıklandığında** kuş zıplar (`KeyPreview` & `MouseDown`).
-- 🕊️ **Gelişmiş Kuş Fiziği ve Animasyonu:** Yerçekimi ivmesi, hıza göre dinamik burun açısı (düşerken aşağı, zıplarken yukarı eğim) ve 3 kareli kanat çırpma animasyonu.
-- 🌵 **Dinamik Boru Mekaniği:** Prosedürel olarak rastgele boşluk yükseklikleriyle üretilen gölgelendirmeli ve başlıklı boru sütunları.
-- 🏆 **Skor ve Rekor Takibi:** Her boru geçildiğinde artan skor paneli ve oturum boyunca tutulan En Yüksek Skor (Best Score).
-- 💥 **Çarpışma Kontrolü (Hitbox):** Tavan, zemin ve borular için hassas dikdörtgen kesişim denetimi.
-- 🖥️ **Yumuşak & Titremesiz Grafik (Double Buffering):** ~60 FPS hızında çalışan `System.Windows.Forms.Timer` ve donanım dostu GDI+ çizimi.
-- 🎖️ **Oyun Sonu (Game Over) ve Madalya:** Skora göre verilen başarı madalyaları (🥇 Altın, 🥈 Gümüş, 🥉 Bronz).
+## 4. Key Features of the Application
+- 🎮 **Universal Input Controls:** **Any key on the keyboard** or any **mouse click** triggers the bird's jump (`KeyPreview` & `MouseDown`).
+- 🕊️ **Realistic Bird Physics & Animation:** Smooth gravity acceleration, dynamic nose-tilt angle (tilting downwards during free-fall and upwards during jumps), and a 3-frame wing-flapping animation.
+- 🌵 **Procedural Pipe Generation:** Obstacle pipes generated with randomized gap heights, fitted with custom gradient shading and decorative rim caps.
+- 🏆 **Live Score HUD & High Score:** Real-time on-screen score display and best score tracking preserved across attempts in the active session.
+- 💥 **Accurate Collision Detection (Hitboxes):** Strict bounding-box collision detection against the ceiling, ground, and pipe bodies/caps.
+- 🖥️ **Smooth 60 FPS Rendering:** High-performance, tear-free rendering powered by `DoubleBuffered` mode and a 60 FPS `System.Windows.Forms.Timer`.
+- 🎖️ **Game Over & Medal Reward System:** Informative Game Over summary card awarding performance medals (🥇 Gold, 🥈 Silver, 🥉 Bronze) based on the final score.
 
 ---
 
-## 5. Ekran Görüntüleri
+## 5. Screenshots
 
-| Ekran Görüntüsü 1: Başlangıç ve Oyun Alanı | Ekran Görüntüsü 2: Boru Geçişi ve Canlı Skor |
+| Screenshot 1: Starting Screen & Flight | Screenshot 2: Navigating Pipes & Live Score |
 | :---: | :---: |
-| <img src="screenshots/screenshot1.png" alt="Flappy Bird Başlangıç" width="360"/> | <img src="screenshots/screenshot2.png" alt="Flappy Bird Boru Geçişi" width="360"/> |
+| <img src="screenshots/screenshot1.png" alt="Flappy Bird Flight" width="360"/> | <img src="screenshots/screenshot2.png" alt="Flappy Bird Gameplay" width="360"/> |
 
 ---
 
-## 6. Bilinen Sınırlamalar / Geliştirme Notları
-- **Ses Efektleri:** Şu anki sürümde ses efektleri (zıplama, skor ve çarpma sesleri) eklenmemiştir. İlerleyen versiyonlarda `System.Media.SoundPlayer` entegrasyonu ile eklenecektir.
-- **Kalıcı Skor:** En yüksek skor (Best Score) oyun açık kaldığı sürece hafızada (RAM) korunur; oyun kapatıldığında sıfırlanır. Kalıcı dosya/JSON kaydı yol haritasındadır.
-- **Zorluk Seviyesi:** Boruların hız ve sıklığı sabit olup seviye ilerledikçe artan dinamik zorluk modu eklenebilir.
+## 6. Known Limitations / Future Improvements
+- **Sound Effects:** Audio effects (jump whoosh, point ding, and collision impact) are currently omitted; they can be integrated in future revisions using `System.Media.SoundPlayer`.
+- **Persistent High Score:** Best score is stored in RAM during the session; persistent file/JSON or registry storage can be added for cross-session retention.
+- **Difficulty Scaling:** Pipe speed and gap size remain steady; dynamic speed increments over time could provide an additional challenge curve.
 
 ---
 
-## 7. Öğrenci Bilgileri
-- **Öğrenci Adı Soyadı:** Mustafa Haccar
-- **Öğrenci Numarası:** `[Öğrenci Numaranızı Buraya Ekleyiniz]`
+## 7. Student Information
+- **Student Full Name:** Mustafa Haccar
+- **Student Number:** `[Please Insert Your Student ID Here]`
