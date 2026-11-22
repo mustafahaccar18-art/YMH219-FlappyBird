@@ -83,4 +83,4 @@ A desktop recreation of the classic retro Flappy Bird game built from the ground
 
 ## 7. Student Information
 - **Student Full Name:** Mustafa Haccar
-- **Student Number:** `[Please Insert Your Student ID Here]`
+- **Student Number:** `[250541623]`
