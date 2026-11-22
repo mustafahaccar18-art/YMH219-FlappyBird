@@ -38,8 +38,8 @@ Klasik retro Flappy Bird oyununun modern .NET ve C# Windows Forms mimarisi üzer
 ### Adım Adım Çalıştırma
 1. **Depoyu Klonlayın veya İndirin:**
    ```bash
-   git clone https://github.com/mustafahaccar18-art/FlappyBird.git
-   cd FlappyBird
+   git clone https://github.com/mustafahaccar18-art/YMH219-FlappyBird.git
+   cd YMH219-FlappyBird
    ```
 
 2. **Projeyi Derleyin:**
